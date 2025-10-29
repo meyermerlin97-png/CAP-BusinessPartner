@@ -1,24 +1,13 @@
-"use strict"
-const axios = require("axios");
+'use strict'
 
-module.exports.checkIban = function checkIban(iban) {
-    return axios.get("https://api.ibantest.com/v1/validate_iban/" + iban, {
-        params: {
-            token: "5df8045269df137316e111bde690acfc"
-        }
-    })
-    .then((response) => response.data['valid'])
+module.exports.checkIban = async function checkIban(iban) {
+    const iban_service = await cds.connect.to('iban_test')
+    return iban_service.get(`/${iban}`).then(
+        (data) => data['valid']
+    )
 }
 
-module.exports.checkAdress = function checkAdress(plz) {
-    return axios.get("https://zip-api.eu/api/v2/info/zip", {
-        headers: {
-            Authorization: 'Bearer RH54olaetGGz8nIpYsbe0ff7zTrs30UWC7FUlPmpxIDBTFD0'
-        },
-        params: {
-            countryCode: 'DE',
-            postalCode: plz,
-        }
-    })
-    .then((response) => response.data)
+module.exports.checkAdress = async function checkAdress(plz) {
+    const address_service = await cds.connect.to('plz_test')
+    return address_service.get(`/zip`, { params: { countryCode: 'DE', postalCode: plz } })
 }
