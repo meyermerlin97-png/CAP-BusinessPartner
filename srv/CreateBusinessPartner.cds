@@ -1,8 +1,11 @@
-
-using de.cronos.businesspartner as db from '../db/BusinessPartner2';
+using de.cronos.businesspartner as db from '../db';
 
 service CreateBusinessPartner {
-    @odata.draft.enabled
-    entity BusinessPartners as projection on db.BusinessPartners;
+    entity BusinessPartners as
+        projection on db.BusinessPartners
+        excluding {
+            apiNotice,
+            screeningStatus,
+            validationStatus
+        };
 }
-

@@ -9,7 +9,7 @@ class CreateBusinessPartner extends cds.ApplicationService {
 
         this.before('CREATE', BusinessPartners, this.setValidationStatus)
 
-        this.on('CREATE', BusinessPartners, this.sendBP)
+        //this.on('CREATE', BusinessPartners, this.sendBP)
 
         this.after('CREATE', BusinessPartners, this.callBPAPI)
 

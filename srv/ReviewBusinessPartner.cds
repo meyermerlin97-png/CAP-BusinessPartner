@@ -1,4 +1,4 @@
-using de.cronos.businesspartner as db from '../db/BusinessPartner2';
+using de.cronos.businesspartner as db from '../db';
 
 service ReviewBusinessPartner {
     @odata.draft.enabled
