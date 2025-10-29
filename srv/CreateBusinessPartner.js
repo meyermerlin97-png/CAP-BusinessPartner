@@ -52,35 +52,35 @@ module.exports = class CreateBusinessPartner extends cds.ApplicationService {
     }
 
     async setValidationStatus(req) {
-        const { checkIban, checkAdress } = require('./APIs/api')
-        const { iban, bpRole, AdressData, email, creditLimit, firstName, lastName, name1, name2 } = req.data
+        const { checkIban, checkAddress } = require('./APIs/api')
+        const { iban, bpRole, AddressData, email, creditLimit, firstName, lastName, name1, name2 } = req.data
         const bp = req.data
 
         let validation_status_iban = 0
         let validation_status_iban2 = 0
-        let validation_status_adress = 0
+        let validation_status_Address = 0
         let validation_status_email = 0
         let validation_status_credit = 0
         let validation_status_screening = 0
         let validation_status = 0
         let apiNotice_intern = 'Api-Aufruf war erfolgreich'
-        let plz = AdressData[0].plz
-        let city = AdressData[0].city
+        let plz = AddressData[0].plz
+        let city = AddressData[0].city
 
-        //Überprüfung Adresse und ggf. Korrektur
-        async function getAdressStatus(plz) {
+        //Überprüfung Addresse und ggf. Korrektur
+        async function getAddressStatus(plz) {
             try {
-                let status_adress = 0
-                const response = await checkAdress(plz)
+                let status_Address = 0
+                const response = await checkAddress(plz)
                 if (response.result && response.result.length > 0) {
                     const placeName = response.result[0].attributes.placeName
 
                     if (placeName.toLowerCase() !== city.toLowerCase()) {
-                        status_adress = 10
+                        status_Address = 10
                     } else {
-                        status_adress = 0
+                        status_Address = 0
                     }
-                    return status_adress
+                    return status_Address
                 } else {
                     apiNotice_intern = 'Kein Treffer'
                 }
@@ -89,7 +89,7 @@ module.exports = class CreateBusinessPartner extends cds.ApplicationService {
             }
         }
 
-        validation_status_adress = await getAdressStatus(plz)
+        validation_status_Address = await getAddressStatus(plz)
 
         //Überprüfung IBAN
         async function getIbanStatus(iban) {
@@ -119,7 +119,7 @@ module.exports = class CreateBusinessPartner extends cds.ApplicationService {
             }
         }
 
-        if (validation_status_adress === 0 && validation_status_iban === 0 && validation_status_email === 0) {
+        if (validation_status_Address === 0 && validation_status_iban === 0 && validation_status_email === 0) {
             //bp.validationStatus_ID = 20;
             validation_status = 20 //valide
         } else {
@@ -229,17 +229,17 @@ module.exports = class CreateBusinessPartner extends cds.ApplicationService {
                             paymentTerm: bp.CompanyCodeData.paymentTerm,
                         },
                     ],
-                    AdressData: [
+                    AddressData: [
                         {
-                            street: bp.AdressData[0].street,
-                            houseNumber: bp.AdressData[0].houseNumber,
-                            plz: bp.AdressData[0].plz,
+                            street: bp.AddressData[0].street,
+                            houseNumber: bp.AddressData[0].houseNumber,
+                            plz: bp.AddressData[0].plz,
                             country: {
-                                code: bp.AdressData[0].country.code,
+                                code: bp.AddressData[0].country.code,
                             },
-                            city: bp.AdressData[0].city,
-                            phoneNumber: bp.AdressData[0].phoneNumber,
-                            email: bp.AdressData[0].email,
+                            city: bp.AddressData[0].city,
+                            phoneNumber: bp.AddressData[0].phoneNumber,
+                            email: bp.AddressData[0].email,
                         },
                     ],
                 }

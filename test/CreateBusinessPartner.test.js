@@ -19,7 +19,7 @@ describe('CreateBusinessPartner Service', () => {
             lastName: 'Doe',
             name1: 'Doe Enterprises',
             iban: 'DE89370400440532013000',
-            AdressData: [
+            AddressData: [
                 {
                     street: 'Main Street',
                     houseNumber: '1',
