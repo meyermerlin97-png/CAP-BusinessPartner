@@ -1,0 +1,21 @@
+@host = http://localhost:4004/rest/test
+@auth = Authorization: Basic alice:secret
+@content = Content-Type: application/json
+
+### Validate IBAN
+POST {{host}}/validateIBAN
+{{auth}}
+{{content}}
+
+{
+    "iban": "DE89370400440532013000"
+}
+
+### Validate Address
+POST {{host}}/validateAddress
+{{auth}}
+{{content}}
+
+{
+    "plz": "10115"
+}

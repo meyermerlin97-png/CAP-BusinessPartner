@@ -1,0 +1,26 @@
+@host = http://localhost:4004/odata/v4/create-business-partner
+@auth = Authorization: Basic alice:secret
+@content = Content-Type: application/json
+
+### Create Business Partner
+POST {{host}}/BusinessPartners
+{{auth}}
+{{content}}
+
+{
+    "bpType": 1,
+    "bpRole": 1,
+    "firstName": "John",
+    "lastName": "Doe",
+    "name1": "Doe Enterprises",
+    "iban": "DE89370400440532013000",
+    "AdressData": [
+        {
+            "street": "Main Street",
+            "houseNumber": "1",
+            "city": "Berlin",
+            "plz": "10115",
+            "country_code": "DE"
+        }
+    ]
+}
