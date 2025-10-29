@@ -25,17 +25,21 @@ using {
     AdressData: Composition of many Addresses on AdressData.bp = $self
  }
 
- type bpType : Integer enum {
+ aspect validateable {
+   
+ }
+
+ type bpType : Integer @assert.range enum {
     person = 1;
     organization = 2
  }
 
- type bpRole : Integer enum {
+ type bpRole : Integer @assert.range enum {
     customer = 1;
     supplier = 2
  }
 
- type screeningStatus : Integer enum {
+ type screeningStatus : Integer @assert.range enum {
    passed = 1;
    failed = 2;
  }
@@ -55,7 +59,7 @@ entity CompanyCodes : managed {
     paymentTerm: paymentTerm;
 }
 
-type paymentTerm : Integer enum {
+type paymentTerm : Integer @assert.range enum {
    barzahler = 1;
    kredit = 2
 }
@@ -81,9 +85,9 @@ entity legalForms : CodeList {
    key ID: String(4)
 }
 
-type Country : Association to countries;
+type Country : Association to Countries;
 
-entity countries : CodeList {
+entity Countries : CodeList {
    key code: String(2)
 }
  
