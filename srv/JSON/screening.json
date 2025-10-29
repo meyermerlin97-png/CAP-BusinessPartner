@@ -1,0 +1,78 @@
+{
+  "sdnEntry": [
+    {
+      "uid": 9639,
+      "firstName": "Ismail Abdul Salah",
+      "lastName": "HANIYA",
+      "sdnType": "Individual",
+      "programList": ["NS-PLC"],
+      "akaList": [
+        {
+          "uid": 9150,
+          "type": "a.k.a.",
+          "category": "strong",
+          "lastName": "HANIYA",
+          "firstName": "Ismail"
+        },
+        {
+          "uid": 9151,
+          "type": "a.k.a.",
+          "category": "strong",
+          "lastName": "HANIYYA",
+          "firstName": "Ismaeel"
+        }
+      ],
+      "dateOfBirthList": [
+        {
+          "uid": 4696,
+          "dateOfBirth": "1962",
+          "mainEntry": true
+        }
+      ],
+      "placeOfBirthList": [
+        {
+          "uid": 4697,
+          "placeOfBirth": "Shati",
+          "mainEntry": true
+        }
+      ]
+    },
+    {
+      "uid": 9640,
+      "firstName": "Mohammed",
+      "lastName": "ABU TEIR",
+      "sdnType": "Individual",
+      "programList": ["NS-PLC"],
+      "akaList": [
+        {
+          "uid": 9152,
+          "type": "a.k.a.",
+          "category": "strong",
+          "lastName": "ABU TAIR",
+          "firstName": "Mohammed Mahmud"
+        },
+        {
+          "uid": 9153,
+          "type": "a.k.a.",
+          "category": "strong",
+          "lastName": "ABOU TAYR",
+          "firstName": "Mohammad Mahmoud"
+        }
+      ],
+      "dateOfBirthList": [
+        {
+          "uid": 4698,
+          "dateOfBirth": "1951",
+          "mainEntry": true
+        }
+      ],
+      "placeOfBirthList": [
+        {
+          "uid": 4699,
+          "placeOfBirth": "Umm Tuba",
+          "mainEntry": true
+        }
+      ]
+    }
+  ]
+}

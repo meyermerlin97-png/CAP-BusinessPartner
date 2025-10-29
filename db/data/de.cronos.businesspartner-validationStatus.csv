@@ -1,0 +1,9 @@
+ID ;name;descr
+0;received;Daten wurden an CAP uebermittelt
+10;invalid;Daten sind nicht valide wegen Adresse, Name oder Email => Eine Person muss manuell Daten korrigieren
+20;valid;BP wurde von CAP direkt als valide gekennzeichnet oder durch die Korrektur einer Person
+30;underReview;BP enthaelt Daten, die per 4 Augen-Prinzip gecheckt werden muessen (IBAN)
+100;submitted;Daten wurden an SAP-API uebergeben
+110;completed;Daten wurden erfolgreich an SAP S4 uebergeben
+120;error;SAP-API hat einen Fehler geworfen
+200;deleted;Datensatz wurde aus CAP-Anwendung wieder geloescht (automatisiert)
