@@ -1,7 +1,6 @@
 const cds = require('@sap/cds')
-//const { val } = require('@sap/cds/lib/ql/cds-ql');
 
-class CreateBusinessPartner extends cds.ApplicationService {
+module.exports = class CreateBusinessPartner extends cds.ApplicationService {
     init() {
         const { BusinessPartners } = this.entities
 
@@ -11,9 +10,13 @@ class CreateBusinessPartner extends cds.ApplicationService {
 
         //this.on('CREATE', BusinessPartners, this.sendBP)
 
-        this.after('CREATE', BusinessPartners, this.callBPAPI)
+        this.after('CREATE', BusinessPartners, this.emitEvent.bind(this))
 
         return super.init()
+    }
+
+    async emitEvent(data) {
+        await this.emit('BusinessPartnerCreated', { ID: data.ID })
     }
 
     checkBusinessPartnerData(req) {
@@ -178,140 +181,7 @@ class CreateBusinessPartner extends cds.ApplicationService {
         bp.apiNotice = apiNotice_intern
     }
 
-    //Entscheidung wo die Daten hingesendet werden
-    async sendBP(req, next) {
-        let apiNotice2 = 'Service erfolgreich'
-        const bp = req.data
-        if (bp.validationStatus_ID === 10) {
-            //Senden an Validierungsservice
-            try {
-                const validateService = await cds.connect.to('ValidateService')
-                //const callValidateService = validateService.tx(req)
-
-                const payload = {
-                    bpType: bp.bpType,
-                    bpRole: bp.bpRole,
-                    firstName: bp.firstName,
-                    lastName: bp.lastName,
-                    birthDate: bp.birthDate,
-                    validationStatus_ID: 10,
-                    legalForm: {
-                        ID: bp.legalForm_ID,
-                    },
-                    SalesAreaData: [
-                        {
-                            salesOrg: bp.SalesAreaData[0].salesOrg,
-                            distributionChannel: bp.SalesAreaData[0].distributionChannel,
-                            divison: bp.SalesAreaData[0].divison,
-                            customerGroup: bp.SalesAreaData[0].customerGroup,
-                        },
-                        {
-                            salesOrg: bp.SalesAreaData[1].salesOrg,
-                            distributionChannel: bp.SalesAreaData[1].distributionChannel,
-                            divison: bp.SalesAreaData[1].distributionChannel,
-                            customerGroup: bp.SalesAreaData[1].customerGroup,
-                        },
-                    ],
-                    CompanyCodeData: [
-                        {
-                            CompanyCode: bp.CompanyCodeData[0].CompanyCode,
-                            reconciliationAccount: bp.CompanyCodeData[0].reconciliationAccount,
-                            paymentTerm: bp.CompanyCodeData[0].paymentTerm,
-                        },
-                        {
-                            CompanyCode: bp.CompanyCodeData[1].CompanyCode,
-                            reconciliationAccount: bp.CompanyCodeData[1].reconciliationAccount,
-                            paymentTerm: bp.CompanyCodeData[1].paymentTerm,
-                        },
-                    ],
-                    AdressData: [
-                        {
-                            street: bp.AdressData[0].street,
-                            houseNumber: bp.AdressData[0].houseNumber,
-                            plz: bp.AdressData[0].plz,
-                            country: {
-                                code: bp.AdressData[0].country.code,
-                            },
-                            city: bp.AdressData[0].city,
-                            phoneNumber: bp.AdressData[0].phoneNumber,
-                            email: bp.AdressData[0].email,
-                        },
-                    ],
-                }
-
-                await validateService.create('BusinessPartners', payload)
-
-                //return createDraft
-            } catch (e) {
-                apiNotice2 = 'Validierungsservice konnte nicht aufgerufen werden'
-            }
-        } else if (bp.validationStatus_ID === 30) {
-            //Senden an ReviewService
-            try {
-                const reviewService = await cds.connect.to('ReviewBusinessPartner')
-
-                const payload = {
-                    bpType: bp.bpType,
-                    bpRole: bp.bpRole,
-                    firstName: bp.firstName,
-                    lastName: bp.lastName,
-                    birthDate: bp.birthDate,
-                    validationStatus_ID: 30,
-                    legalForm: {
-                        ID: bp.legalForm_ID,
-                    },
-                    SalesAreaData: [
-                        {
-                            salesOrg: bp.SalesAreaData[0].salesOrg,
-                            distributionChannel: bp.SalesAreaData[0].distributionChannel,
-                            divison: bp.SalesAreaData[0].divison,
-                            customerGroup: bp.SalesAreaData[0].customerGroup,
-                        },
-                        {
-                            salesOrg: bp.SalesAreaData[1].salesOrg,
-                            distributionChannel: bp.SalesAreaData[1].distributionChannel,
-                            divison: bp.SalesAreaData[1].distributionChannel,
-                            customerGroup: bp.SalesAreaData[1].customerGroup,
-                        },
-                    ],
-                    CompanyCodeData: [
-                        {
-                            CompanyCode: bp.CompanyCodeData[0].CompanyCode,
-                            reconciliationAccount: bp.CompanyCodeData[0].reconciliationAccount,
-                            paymentTerm: bp.CompanyCodeData[0].paymentTerm,
-                        },
-                        {
-                            CompanyCode: bp.CompanyCodeData[1].CompanyCode,
-                            reconciliationAccount: bp.CompanyCodeData[1].reconciliationAccount,
-                            paymentTerm: bp.CompanyCodeData[1].paymentTerm,
-                        },
-                    ],
-                    AdressData: [
-                        {
-                            street: bp.AdressData[0].street,
-                            houseNumber: bp.AdressData[0].houseNumber,
-                            plz: bp.AdressData[0].plz,
-                            country: {
-                                code: bp.AdressData[0].country.code,
-                            },
-                            city: bp.AdressData[0].city,
-                            phoneNumber: bp.AdressData[0].phoneNumber,
-                            email: bp.AdressData[0].email,
-                        },
-                    ],
-                }
-
-                await reviewService.create('BusinessPartners', payload)
-                //return createReview
-            } catch (e) {
-                apiNotice2 = 'ReviewService konnte nicht aufgerufen werden'
-            }
-        } else if (bp.validationStatus_ID === 20) {
-            //Senden an DB
-            return next()
-        }
-    }
-
+    /* Do not call this here, call it after it being reviewed and validated
     async callBPAPI(req) {
         if (!req) {
             return
@@ -382,6 +252,5 @@ class CreateBusinessPartner extends cds.ApplicationService {
             return
         }
     }
+    */
 }
-
-module.exports = CreateBusinessPartner

@@ -28,7 +28,8 @@
     "jest": "^30.2.0"
   },
   "scripts": {
-    "start": "cds-serve",
+    "start": "cds-serve --in-memory --with-mocks",
+    "test": "jest --runInBand",
     "watch-project1": "cds watch --open project1/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-project2": "cds watch --open project2/index.html?sap-ui-xx-viewCache=false --livereload false",
     "watch-businesspartner": "cds watch --open businesspartner/index.html?sap-ui-xx-viewCache=false --livereload false",
@@ -37,9 +38,12 @@
   },
   "cds": {
     "requires": {
+      "messaging": {
+        "kind": "local-messaging"
+      },
       "db": {
         "kind": "sqlite",
-        "[development]": {
+        "[testing]": {
           "credentials": {
             "url": "db/my.db"
           }
