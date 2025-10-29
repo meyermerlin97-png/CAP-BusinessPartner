@@ -22,7 +22,7 @@ using {
     validationStatus: Association to validationStatus;
     SalesAreaData: Composition of many SalesAreas on SalesAreaData.bp = $self;
     CompanyCodeData: Composition of many CompanyCodes on CompanyCodeData.bp = $self;
-    AdressData: Composition of many Addresses on AdressData.bp = $self
+    AddressData: Composition of many Addresses on AddressData.bp = $self
  }
 
  aspect validateable {
@@ -48,7 +48,7 @@ entity SalesAreas : managed {
     key bp: Association to BusinessPartners;
     key salesOrg: String(4) @mandatory;
     key distributionChannel : String(2) @mandatory;
-    key divison : String(2) @mandatory;
+    key division : String(2) @mandatory;
     customerGroup: String (10)
 }
 

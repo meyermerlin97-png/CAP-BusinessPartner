@@ -1,0 +1,36 @@
+[
+    {
+        "bpType": 1,
+        "bpRole": 1,
+        "firstName": "John",
+        "lastName": "Doe",
+        "birthDate": "1980-01-01",
+        "companyName": "",
+        "legalForm_ID": 1234,
+        "iban": "DE89370400440532013000",
+        "SalesAreaData": [
+            {
+                "salesOrg": "1000",
+                "distributionChannel": "10",
+                "division": "00",
+                "customerGroup": "1231231234"
+            }
+        ],
+        "AddressData": [
+            {
+                "streetName": "Main Street",
+                "houseNumber": "1",
+                "plz": "12345",
+                "city": "Sample City",
+                "country_code": "DE"
+            }
+        ],
+        "CompanyCodeData": [
+            {
+                "CompanyCode": "1000",
+                "reconciliationAccount": 400000,
+                "paymentTerms": 2
+            }
+        ]
+    }
+]
