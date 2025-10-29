@@ -8,9 +8,4 @@ service CreateBusinessPartner {
             screeningStatus,
             validationStatus
         };
-
-    @topic: 'businessPartners/created'
-    event BusinessPartnersCreated {
-        ID : type of BusinessPartners : ID;
-    }
 }
