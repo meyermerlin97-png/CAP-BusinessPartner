@@ -16,7 +16,8 @@ module.exports = class CreateBusinessPartner extends cds.ApplicationService {
     }
 
     async emitEvent(data) {
-        await this.emit('BusinessPartnerCreated', { ID: data.ID })
+        const messaging = await cds.connect.to('messaging')
+        await messaging.emit('businessPartners/created', { ID: data.ID })
     }
 
     checkBusinessPartnerData(req) {

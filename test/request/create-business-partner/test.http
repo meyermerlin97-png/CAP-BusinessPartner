@@ -8,6 +8,7 @@ POST {{host}}/BusinessPartners
 {{content}}
 
 {
+    "ID": "b0e746cc-5375-485a-95ef-d48a22589ceb",
     "bpType": 1,
     "bpRole": 1,
     "firstName": "John",

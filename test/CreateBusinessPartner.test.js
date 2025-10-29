@@ -1,14 +1,14 @@
 const cds = require('@sap/cds')
 
-let spyOn
+let spyOnEmit
 
 describe('CreateBusinessPartner Service', () => {
     const test = cds.test('serve', '--in-memory')
     test.axios.defaults.auth = { username: 'system', password: 'secret' }
 
     beforeAll(async () => {
-        const messaging = await cds.connect.to('CreateBusinessPartner')
-        spyOn = jest.spyOn(messaging, 'emit')
+        const messaging = await cds.connect.to('messaging')
+        spyOnEmit = jest.spyOn(messaging, 'emit')
     })
 
     it('should create a Business Partner', async () => {
@@ -36,7 +36,11 @@ describe('CreateBusinessPartner Service', () => {
         expect(res.data.bpType).toBe(newBP.bpType)
         expect(res.data.bpRole).toBe(newBP.bpRole)
 
-        expect(spyOn).toHaveBeenCalled()
+        expect(spyOnEmit).toHaveBeenCalled()
+
+        const bp = await cds.read(cds.entities('de.cronos.businesspartner').BusinessPartners, { ID: res.data.ID })
+
+        expect(bp.validationStatus_ID).not.toBeNull
     })
 
     it('should fail to create a Business Partner with invalid data', async () => {
