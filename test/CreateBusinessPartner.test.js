@@ -7,7 +7,7 @@ describe('CreateBusinessPartner Service', () => {
     test.axios.defaults.auth = { username: 'system', password: 'secret' }
 
     beforeAll(async () => {
-        const messaging = await cds.connect.to('CreateBusinessPartner')
+        const messaging = await cds.connect.to('messaging')
         spyOn = jest.spyOn(messaging, 'emit')
     })
 

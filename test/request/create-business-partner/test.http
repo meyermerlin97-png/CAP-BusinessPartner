@@ -8,13 +8,14 @@ POST {{host}}/BusinessPartners
 {{content}}
 
 {
+    "ID": "b0e746cc-5375-485a-95ef-d48a22589ceb",
     "bpType": 1,
     "bpRole": 1,
     "firstName": "John",
     "lastName": "Doe",
     "name1": "Doe Enterprises",
     "iban": "DE89370400440532013000",
-    "AdressData": [
+    "AddressData": [
         {
             "street": "Main Street",
             "houseNumber": "1",

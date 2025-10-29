@@ -10,7 +10,7 @@ service CreateBusinessPartner {
         };
 
     @topic: 'businessPartners/created'
-    event businessPartnersCreated {
+    event BusinessPartnersCreated {
         ID : type of BusinessPartners : ID;
     }
 }
