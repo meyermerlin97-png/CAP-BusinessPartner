@@ -41,14 +41,10 @@
         "kind": "odata-v2",
         "model": "srv/external/API_BUSINESS_PARTNER"
       },
-      "ReviewService": {
-        "kind": "odata-v2",
-        "model": "srv/ReviewBusinessPartner"
-      },
-      "ValidateService": {
-        "kind": "odata-v4",
+      "ibantest": {
+        "kind": "rest",
         "credentials": {
-          "url": "http://localhost:4004/odata/v4/validate-business-partner"
+          "url": "https://api.ibantest.com/v1/validate_iban/"
         }
       }
     }
